@@ -5,15 +5,20 @@ public:
         sort(nums.begin(), nums.end());
         set<vector<int>> set;
         vector<vector<int>> output;
-        for(int i=0; i<n-3; i++){
-            for(int j=i+1; j<n-2; j++){
-                long long newTarget = (long long)target - (long long)nums[i] - (long long)nums[j];
+        for(int i=0; i<n-1; i++){
+            for(int j=i+1; j<n; j++){
+                
                 int low = j+1, high = n-1;
-                while(low < high){
-                    if(nums[low] + nums[high] < newTarget){
+                 while(low < high){
+                long long int sum= nums[low];
+                sum+= nums[high];
+                sum+= nums[i];
+                sum+= nums[j];
+              
+                    if(sum < target){
                         low++;
                     }
-                    else if(nums[low] + nums[high] > newTarget){
+                    else if(sum> target){
                         high--;
                     }
                     else{
