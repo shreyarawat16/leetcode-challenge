@@ -4,11 +4,12 @@ public:
        int maxi=INT_MIN;
        int prod=1;
        for(int i=0; i<nums.size(); i++){
-           prod*= nums[i];
-           maxi= max(maxi, prod);
-           if(prod==0){
+            if(prod==0){
                prod=1;
            }
+           prod*= nums[i];
+           maxi= max(maxi, prod);
+          
           
        }
         prod=1;
