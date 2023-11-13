@@ -5,7 +5,7 @@ public:
        vector<int> ans;
        int i=0,j=0;
     while(i<m && j<n){
-        if(a[i]<= b[j]){
+        if(a[i]<b[j]){
            
                 ans.push_back(a[i]);
            
