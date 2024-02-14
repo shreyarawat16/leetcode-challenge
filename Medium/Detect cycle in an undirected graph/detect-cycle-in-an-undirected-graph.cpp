@@ -4,41 +4,38 @@ using namespace std;
 
 // } Driver Code Ends
 class Solution {
-     private:
-    bool solve(const vector<int> adj[], int vis[], int src, int prev)
-    {
-        vis[src] = 1;
-        for(auto i:adj[src])
-        {
-            if(i==prev) // If its a parent node continue.
-            continue;
-            
-            if(vis[i]==1) // If already visited return true.
-            return true;
-            
-            else
-            {
-                vis[i] = 1;
-                if(solve(adj, vis, i, src)) // If true encountered anywhere keep returning true.
-                return true;
-            }
-        }
-     return false; // If traversed successfully return false.
-    }
-  
-  
   public:
     // Function to detect cycle in an undirected graph.
-    bool isCycle(int V, vector<int> adj[]) {
+    bool detectCycle(int src, int V, vector<int> adj[]) {
         // Code here
-        int vis[V] = {0};
+        queue<pair<int, int>> q;
+    vector<int> vis(V,0);
+    q.push({src,-1});
+    vis[src]=1;
+    while(!q.empty()){
+int node= q.front().first;
+int parent= q.front().second;
+q.pop();
+for(auto it: adj[node]){
+    if(!vis[it]){
+        q.push({it, node});
+        vis[it]=1;
+    }
+    else if(parent!= it){
+        return true;
+    }
+}
+    }
+    return false;
         
-        for(int i=0; i<V; ++i)
-        {
-            if(vis[i]!=1)
-            {
-                if(solve(adj, vis, i, -1))
-                return true;
+    }
+    bool isCycle(int V, vector<int> adj[]){
+        vector<int> vis(V,0);
+        for(int i=0; i<V; i++){
+            if(!vis[i]){
+                if(detectCycle(i,V,adj)){
+                    return true;
+                }
             }
         }
         return false;
