@@ -103,26 +103,45 @@ struct Node
 
 class Solution{
     public:
-    int height(Node* root){
+    /*
+    pair<int, int> solve(Node* root){
+         if(root==NULL){
+            pair<int, int> p= make_pair(true,0);
+            return p;
+        }
+        pair<int, int> left=solve(root->left);
+        pair<int, int> right= solve(root->right);
+        pair<int, int> ans;
+       bool op1= left.first;
+       bool op2= right.first;
+       int op3= abs(left.second- right.second)<=1;
+       ans.second= 1+ max(left.second, right.second);
+       if(op1 && op2 && op3) {
+           ans.first= true;
+           
+       }
+       else{
+           ans.first= false;
+       }
+       return ans;
+    }*/
+    //Function to check whether a binary tree is balanced or not.
+    int height(Node* root, bool& valid){
         if(root==NULL){
             return 0;
         }
-        int lh= height(root->left);
-        int rh= height(root->right);
-        return 1+ max(lh,rh);
+        int left= height(root->left, valid);
+        int right= height(root->right, valid);
+        if( abs(left-right)>1) valid= false;
+        return 1+ max(left, right);
     }
-    //Function to check whether a binary tree is balanced or not.
     bool isBalanced(Node *root)
     {
         //  Your Code here
-        if(root==NULL){
-            return true;
-        }
-        bool left= isBalanced(root->left);
-        bool right= isBalanced(root->right);
-        bool diff= abs(height(root->left)- height(root->right))<=1;
-        if(left && right && diff) return true;
-        return false;
+      // return solve(root).first;
+       bool valid= true;
+       height(root, valid);
+       return valid;
     }
 };
 
