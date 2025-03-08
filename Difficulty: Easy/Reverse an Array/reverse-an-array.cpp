@@ -7,19 +7,17 @@ using namespace std;
 
 class Solution {
   public:
-  void f(vector<int>& arr, int si, int ei){
-      if(si>=ei){
-          return;
-      }
-      int temp= arr[si];
-      arr[si]= arr[ei];
-      arr[ei]= temp;
-      f(arr, si+1, ei-1);
+  void f(vector<int>& arr, int si){
+      int n= arr.size();
+      if(si>=n/2) return;
+      swap(arr[si], arr[n-si-1]);
+      f(arr, si+1);
+      
   }
     void reverseArray(vector<int> &arr) {
         // code here
-        int si=0, ei= arr.size()-1;
-        return f(arr, si, ei);
+        int si=0;
+        return f(arr, si);
     }
 };
 
