@@ -12,29 +12,34 @@ class Solution {
   public:
     vector<int> leaders(vector<int>& arr) {
         // Code here
-        //BRUTE TC: O(N*2), SC: O(N)
+        //BRUTE TC: O(N*2), SC: O(N) extra space to store the answer
     //     vector<int> ans;
        
     //     int n= arr.size();
         
     //     for(int i=0; i< n-1; i++){
+    //     bool flag= true;
     //         for(int j= i+1; j<n; j++){
     //             if(arr[j]> arr[i]){
+    //                 flag= false;
     //                 break;
     //             }
-    //             else if(j== n-1) {
-    //                 ans.push_back(arr[i]);
-    //             }
+    //         }
+    //         if(flag== true){
+    //             ans.push_back(arr[i]);
     //         }
     //     }
     //  ans.push_back(arr[n-1]);
     //  return ans;
+    // }
+    
+    //OPTIMAL
      vector<int> ans;
      int n= arr.size();
      
-    int maxi= arr[n-1];
-    ans.push_back(maxi);
-    for(int i=n-2; i>=0; i--){
+    int maxi= INT_MIN;
+    
+    for(int i=n-1; i>=0; i--){
         if(maxi <= arr[i]){
              ans.push_back(arr[i]);
             maxi= arr[i];
