@@ -7,14 +7,16 @@ using namespace std;
 
 class Solution {
   public:
- //TC: O(NLOGN)
+ //TC: O(NLOGN) SC: O(N) for temp array
+ //Also tell that we are distorting the array
   int mergeSort(vector<int>& nums, int si, int ei, int mid){
       int i=si, j= mid+1, cnt=0;
       vector<int> temp;
       while(i<=mid && j<=ei){
           if(nums[i]> nums[j]){
-              temp.push_back(nums[j]);
+              
               cnt+= (mid-i+1);
+              temp.push_back(nums[j]);
               j++;
           }
           else{
