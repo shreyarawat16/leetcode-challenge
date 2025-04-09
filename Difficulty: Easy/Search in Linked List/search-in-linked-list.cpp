@@ -14,6 +14,7 @@ struct Node {
 
 
 // } Driver Code Ends
+
 /* Link list node */
 /*
 struct Node
@@ -26,18 +27,19 @@ struct Node
 class Solution {
   public:
     // Function to count nodes of a linked list.
-    bool searchKey(int n, struct Node* head, int key) {
+    bool searchKey(int n, Node* head, int key) {
         // Code here
-        Node* temp= head;
-        while(temp->data!= key && temp->next!=NULL){
-            temp= temp->next;
-        }
-        if(temp->data== key){
-            return true;
+        Node* temp = head;
+        while(temp!=NULL){
+             if(key == temp->data){
+                 return true;
+             }
+             temp=temp->next;
         }
         return false;
     }
 };
+
 
 
 //{ Driver Code Starts.
@@ -62,7 +64,10 @@ int main() {
         int key;
         cin >> key;
         Solution ob;
-        cout << ob.searchKey(n, head, key) << endl;
+        cout << (ob.searchKey(n, head, key) ? "true" : "false") << endl;
+
+        cout << "~"
+             << "\n";
     }
     return 0;
 }
