@@ -87,30 +87,32 @@ class Solution {
     // Function to delete a node at given position.
     Node* deleteNode(Node* head, int x) {
         // Your code here
+        Node* temp= head;
+        if(x==1){
+            head= head->next;
+            if(head!=NULL){
+                head->prev=NULL;
+                delete temp;
+                return head;
+            }
+        }
         
         int i=1;
-        Node* temp= head;
-        while(i< x-1 && temp->next!=NULL){
-            temp=temp->next;
+        while(i<x-1 && temp->next!=NULL){
             i++;
+            temp= temp->next;
         }
-        if(x==1){
-            head= temp->next;
-            head->prev= NULL;
-        }
+        Node* a= temp->next->next;
+        Node* b= temp->next;
+        if(a!=NULL){
+        temp->next= a;
+        a->prev= temp;
         
-        if(temp->next==NULL){
-            return head;
         }
-        if(temp->next!=NULL && temp->next->next!=NULL){
-        Node* a= temp->next;
-        Node* b= a->next;
-        temp->next= b;
-        b->prev= temp;
-        }
-        else if(temp->next->next==NULL) {
+        else{
             temp->next=NULL;
         }
+        delete b;
         return head;
     }
 };
