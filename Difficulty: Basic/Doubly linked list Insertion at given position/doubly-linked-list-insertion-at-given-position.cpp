@@ -33,25 +33,23 @@ class Solution {
     Node *addNode(Node *head, int pos, int data) {
         // code here
         Node* newnode= new Node(data);
-        if(head==NULL){
-            return newnode;
-        }
         Node* temp= head;
         int i=0;
-        while(i<pos && temp->next!=NULL){
-            temp=temp->next;
+        while(i<pos && temp!=NULL){
             i++;
+            temp= temp->next;
         }
-        if(temp!=NULL && temp->next!=NULL){
+        if(temp->next!=NULL){
         Node* a= temp->next;
         temp->next= newnode;
-        newnode->next= a;
         newnode->prev= temp;
+        newnode->next=a;
         a->prev= newnode;
         }
-        else{
+        if(temp->next==NULL){
             temp->next= newnode;
             newnode->prev= temp;
+            newnode->next=NULL;
         }
         return head;
     }
