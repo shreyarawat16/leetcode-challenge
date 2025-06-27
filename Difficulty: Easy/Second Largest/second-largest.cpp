@@ -1,62 +1,19 @@
-//{ Driver Code Starts
-#include <bits/stdc++.h>
-
-using namespace std;
-
-
-// } Driver Code Ends
-
-// User function template for C++
 class Solution {
   public:
-    // Function returns the second
-    // largest elements
     int getSecondLargest(vector<int> &arr) {
-        // Code Here
-        //BRUTE APPROACH. TC- O(NLOGN)+O(N)
-        // int n= arr.size();
-        // sort(arr.begin(), arr.end());
-        // return arr[n-2];
-        
-        //BETTER. TC- O(2N)
-        int largest= arr[0];
-        for(int i=0; i<arr.size(); i++){
-            if(arr[i]> largest){
-                largest= arr[i];
+        // code here
+        int maxi=arr[0], secondmaxi=-1;
+        int n= arr.size();
+        for(int i=1; i<n; i++){
+            if(arr[i]> maxi){
+                secondmaxi=maxi;
+                maxi= arr[i];
             }
-        }
-        int slargest= -1;
-        for(int i=0; i< arr.size(); i++){
-            if(arr[i]> slargest && arr[i]!= largest){
-                slargest= arr[i];
+            else if(arr[i]<maxi && arr[i]> secondmaxi) {
+                secondmaxi= arr[i];
             }
+            
         }
-        return slargest;
+        return secondmaxi;
     }
 };
-
-
-//{ Driver Code Starts.
-
-int main() {
-    int t;
-    cin >> t;
-    cin.ignore();
-    while (t--) {
-        vector<int> arr;
-        string input;
-        getline(cin, input);
-        stringstream ss(input);
-        int number;
-        while (ss >> number) {
-            arr.push_back(number);
-        }
-        Solution ob;
-        int ans = ob.getSecondLargest(arr);
-        cout << ans << endl;
-        cout << "~" << endl;
-    }
-    return 0;
-}
-
-// } Driver Code Ends
