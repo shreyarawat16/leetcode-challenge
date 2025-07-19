@@ -1,21 +1,7 @@
 class Solution {
   public:
 
-bool DFS(int node, vector<int>& vis, vector<vector<int>>& adj, int V, int parent){
-     vis[node]=1;
-    
-     for(auto it: adj[node]){
-            if(!vis[it]){
-               if( DFS(it,vis, adj, V,node)) return true;
-            }
-             else if(it!= parent){
-             return true;
-            }
-         
-         
-     }
-     return false;
- }
+
     bool isCycle(int V, vector<vector<int>> edges) {
         // Code here
        
@@ -27,14 +13,32 @@ bool DFS(int node, vector<int>& vis, vector<vector<int>>& adj, int V, int parent
           adj[u].push_back(v);
           adj[v].push_back(u);
        }
+       queue<pair<int,int>> q;
+       for(int i=0; i<V; i++){
+           if(!vis[i]){
+                vis[i]=1;
+               q.push({i,-1});
+           
+           while(!q.empty()){
+           int u= q.front().first;
+           int parent= q.front().second;
+           q.pop();
+           for(auto it: adj[u]){
+               if(!vis[it]){
+                   vis[it]=1;
+                   q.push({it,u});
+               }
+               else if(it!= parent){
+                   return true;
+               }
+           }
+           
+       }
+       }
+       }
+      
        
-        for(int i=0; i<V; i++){
-            if(!vis[i]){
-                if(DFS(i, vis, adj,V,-1)==true){
-                    return true;
-                }
-            }
-        }
+       
         return false;
     }
 };
