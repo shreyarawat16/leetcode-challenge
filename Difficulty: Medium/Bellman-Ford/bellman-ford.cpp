@@ -7,26 +7,21 @@ class Solution {
         
           vector<int> dist(V, 1e8);
         dist[src]=0;
-        for(int i=0; i<V-1; i++){
+        for(int i=0; i<V; i++){
         for(auto& it: edges){
             int u= it[0];
             int v = it[1];
             int wt= it[2];
             if(dist[u]!= 1e8 && dist[u]+wt< dist[v]){
-               dist[v]= dist[u]+wt;
+                if(i==V-1){
+                    return {-1};
+                }               
+                dist[v]= dist[u]+wt;
             }
          }
       }
     //  If after V-1 relaxations we can still relax, it means there’s a negative cycle.
-          for(auto& it: edges){
-                int u= it[0];
-                int v = it[1];
-                int wt= it[2];
-                if(dist[u]!= 1e8 && dist[u]+wt< dist[v]){
-                    return {-1};
-                }
-          }
-    
+         
         return dist;
     }
 };
