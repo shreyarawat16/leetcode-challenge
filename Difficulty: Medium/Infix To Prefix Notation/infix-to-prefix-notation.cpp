@@ -1,62 +1,74 @@
 class Solution {
-    private:
-    int presidency(char ch){
-        if(ch=='+' or ch=='-'){
-            return 1;
-        }
-        if(ch=='*' or ch=='/')
-        return 2;
-        if(ch=='^')
-        return 3;
-        return -1;
-    }
-  bool   isRightAssociative(char ch){
-      return (ch=='^');
-  }
   public:
+   int precedence(char ch){
+      if(ch=='^'){
+          return 3;
+      }
+      else if(ch=='*' || ch=='/'){
+          return 2;
+      }
+      else if(ch=='+' || ch=='-'){
+          return 1;
+      }
+      return -1;
+  }
+    
+          
+
     string infixToPrefix(string &s) {
         // code here
-        string ans="";
-        string rev= s;
-        reverse(rev.begin(), rev.end());
-        stack<char> st;
-        for(char &ch: rev){
-            if(ch=='('){
-                ch=')';
+
+        reverse(s.begin(), s.end());
+        for(int i=0; i<s.size(); i++){
+            if(s[i]=='('){
+                s[i]=')';
             }
-            else if(ch==')'){
-                ch='(';
+            else if(s[i]==')'){
+                s[i] = '(';
             }
         }
-        for(char ch: rev){
-            if(ch=='*' or ch=='/' or ch=='+' or ch=='-' or ch=='^'){
-                while(!st.empty() and  st.top()!='(' and ((!isRightAssociative(ch) and presidency(st.top())>presidency(ch)) or  (isRightAssociative(ch) && presidency(st.top())>=presidency(ch)))) {
-                    ans= ans+ st.top();
-                    st.pop();
+        
+          string ans="";
+          stack<char> st;
+          for(int i=0; i< s.size(); i++){
+               char ch= s[i];
+               if((ch>='a' && ch<='z') || (ch>='A' && ch<='Z') || (ch>='0' && ch<='9')){
+                 ans= ans+ch;   
+               }
+               else if(ch=='('){
+                 st.push(ch);
+               }
+               else if(ch==')'){
+                 while(!st.empty() && st.top()!='('){
+                     ans+= st.top();
+                     st.pop();
+                 }
+                 st.pop();
+               }
+             else {
+                 if(ch=='^'){
+                   while(!st.empty() && precedence(ch)<= precedence(st.top()))
+                   {
+                     ans+= st.top();
+                     st.pop();
+                  }
+                  
+                }
+                else{
+                    while(!st.empty() && precedence(ch)< precedence(st.top()) ){
+                        ans+= st.top();
+                     st.pop();
+                    }
                 }
                 st.push(ch);
-            }
-            else if(ch>='a' and ch<='z' or ch>='A' and ch<='Z' or ch>='0' and ch<='9'){
-                ans= ans+ch;
-                
-            }
-            else if(ch=='('){
-                st.push(ch);
-            }
-            else{
-                //normal 
-                while(st.top()!='('){
-                    ans= ans+st.top();
-                    st.pop();
-                }
-                st.pop();
-            }
-        }
-        while(!st.empty()){
-            ans= ans+st.top();
-            st.pop();
-        }
-        reverse(ans.begin(), ans.end());
-        return ans;
+             }
+          }
+          while(!st.empty()){
+              ans+= st.top();
+              st.pop();
+          }
+          
+       reverse(ans.begin(), ans.end());
+       return ans;
     }
 };
