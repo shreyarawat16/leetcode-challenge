@@ -1,33 +1,24 @@
-/*The structure of the class is
-class SortedStack{
-public:
-    stack<int> s;
-    void sort();
+class Solution {
+  public:
+  void sortedInsert(int val, stack<int>& st){
+      if(st.empty() || (!st.empty() && val> st.top()) ){
+          st.push(val);
+          return;
+      }
+      int num= st.top();
+      st.pop();
+      sortedInsert(val, st);
+      st.push(num);
+  }
+    void sortStack(stack<int> &st) {
+        // code here
+        if(st.empty()){
+            
+            return;
+        }
+        int val= st.top();
+        st.pop();
+        sortStack(st);
+        sortedInsert(val, st);
+    }
 };
-*/
-
-/* The below method sorts the stack s
-you are required to complete the below method */
-void sortedInsert(stack<int>& st, int val){
-    
-    if(st.empty() || val>st.top()){
-        st.push(val);
-        return;
-    }
-    
-    int x= st.top();
-    st.pop();
-    sortedInsert(st, val);
-    st.push(x);
-    
-}
-void SortedStack ::sort() {
-    // Your code here
-    if(!s.empty()){
-    int val= s.top();
-    s.pop();
-    sort();
-    sortedInsert(s, val);
-    }
-    
-}
