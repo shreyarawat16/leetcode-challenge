@@ -1,28 +1,25 @@
-// User function Template for C++
-
 class Solution {
   public:
-  void insertAtBottom(stack<int>& st,  int x){
+  void insertAtBottom(int val, stack<int>& st){
       if(st.empty()){
-          st.push(x);
+          st.push(val);
           return;
       }
-      int val= st.top();
+      int v=st.top();
       st.pop();
-      insertAtBottom(st,x);
-      st.push(val);
+      insertAtBottom(val, st);
+      st.push(v);
       return;
   }
-    void Reverse(stack<int> &St) {
-        if(St.empty()){
-        
+    void reverseStack(stack<int> &st) {
+        // code here
+        if(st.empty()){
             return;
         }
-        int val= St.top();
-        St.pop();
-        Reverse(St);
-        insertAtBottom(St, val);
+        int val= st.top();
+        st.pop();
+        reverseStack(st);
+        insertAtBottom(val,st);
         return;
-   }
-   
+    }
 };
