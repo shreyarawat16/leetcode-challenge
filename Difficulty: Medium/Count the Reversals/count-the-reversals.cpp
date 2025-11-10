@@ -2,12 +2,14 @@ class Solution {
   public:
     int countMinReversals(string s) {
         // code here
-        int n= s.size();
-        if(n%2!=0) return -1;
         stack<char> st;
+        int n= s.size();
+        if(n%2==1){
+            return -1;
+        }
         for(int i=0; i<n; i++){
             char ch= s[i];
-            if(ch== '{'){
+            if(ch=='{'){
                 st.push(ch);
             }
             else{
@@ -19,16 +21,18 @@ class Solution {
                 }
             }
         }
-        int open=0, close=0;
+        int a=0,b=0;
         while(!st.empty()){
             if(st.top()=='{'){
-                open++;
+                a++;
+                st.pop();
             }
             else{
-                close++;
+                b++;
+                st.pop();
             }
-            st.pop();
         }
-        return (open+1)/2 + (close+1)/2;
+        int ans=(a+1)/2+ (b+1)/2;
+        return ans;
     }
 };
